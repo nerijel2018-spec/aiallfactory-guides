@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>올팩 무료 자료실</title>
+<meta name="description" content="릴스에서 소개한 AI 툴·자동화 자료를 복사해서 바로 쓰는 가이드로 모았어요. 가입도 결제도 필요 없어요.">
+<meta property="og:title" content="올팩 무료 자료실">
+<meta property="og:description" content="릴스에서 본 그 자료, 여기 다 있어요. 복사해서 바로 쓰는 프롬프트와 설치법.">
+<meta property="og:url" content="https://aiallfactory.com/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0d'/%3E%3Crect x='10' y='10' width='12' height='12' rx='3' fill='%23d7ff3a'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b0d; --bg2:#141417; --card:#18181c; --line:#2a2a30;
+  --text:#f2f2f0; --sub:#a6a6ad; --lime:#d7ff3a; --yellow:#ffd43b; --ink:#0b0b0d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(11,11,13,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+.logo i{width:10px;height:10px;border-radius:3px;background:var(--lime);display:inline-block}
+.logo small{font-weight:500;font-size:12px;color:var(--sub);letter-spacing:0}
+.nav-sp{flex:1}
+.nav a.tab{font-size:14px;color:var(--sub)}
+.nav a.tab.on{color:var(--text);box-shadow:inset 0 -2px 0 var(--lime)}
+.btn-cta{background:var(--lime);color:var(--ink);font-weight:900;font-size:14px;padding:9px 16px;border-radius:10px;white-space:nowrap}
+
+/* hero */
+.hero{background:var(--lime);color:var(--ink);text-align:center;padding:56px 20px 50px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.08) 1px,transparent 1px);background-size:14px 14px;pointer-events:none}
+.label{display:inline-block;background:var(--ink);color:var(--lime);font-weight:900;font-size:12px;letter-spacing:.2em;padding:7px 14px;border-radius:4px;transform:rotate(-2deg);position:relative;z-index:1}
+.hero h1{font-size:clamp(30px,6vw,56px);font-weight:900;letter-spacing:-1.5px;line-height:1.2;margin:20px 0 14px;position:relative;z-index:1}
+.hero h1 b{background:var(--ink);color:var(--yellow);padding:0 12px;border-radius:6px;display:inline-block;transform:rotate(1deg)}
+.hero p{font-size:16px;font-weight:500;position:relative;z-index:1}
+.hand{font-family:'Nanum Pen Script',cursive;font-size:24px;margin-top:10px;transform:rotate(-2deg);position:relative;z-index:1}
+
+/* list */
+.wrap{max-width:1080px;margin:0 auto;padding:36px 20px 80px}
+.search{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:13px 16px;max-width:460px}
+.search input{flex:1;background:none;border:0;outline:0;color:var(--text);font:inherit;font-size:15px}
+.search svg{flex:none;opacity:.6}
+.filters{margin-top:20px;display:grid;gap:10px}
+.frow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.frow .k{font-size:12px;color:var(--sub);width:34px;flex:none}
+.chip{background:var(--bg2);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700;padding:7px 13px;border-radius:999px}
+.chip span{color:var(--sub);font-weight:500;margin-left:4px}
+.chip.on{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.chip.on span{color:var(--ink)}
+.count{margin:28px 0 14px;font-size:14px;color:var(--sub)}
+.count b{color:var(--text);font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:10px;transition:transform .15s,border-color .15s;position:relative}
+.card:hover{transform:translateY(-3px);border-color:#44444d}
+.card.hot{background:linear-gradient(160deg,#1f2410 0%,var(--card) 55%);border-color:#3c4718}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--sub)}
+.tag.t{color:var(--lime);border-color:#3c4718}
+.tag.new{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.card h3{font-size:19px;font-weight:900;letter-spacing:-.4px;line-height:1.4;padding-right:46px}
+.card p{font-size:14px;padding-right:46px;color:var(--sub);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{font-size:12px;color:#7d7d85;margin-top:auto}
+.arrow{position:absolute;right:20px;top:50%;margin-top:-18px;width:36px;height:36px;border-radius:50%;background:var(--lime);color:var(--ink);display:grid;place-items:center;font-weight:900}
+.empty{color:var(--sub);padding:40px 0;text-align:center;grid-column:1/-1}
+
+/* guide page */
+.gwrap{max-width:1080px;margin:0 auto;padding:36px 20px 90px;display:grid;grid-template-columns:230px 1fr;gap:44px}
+.toc{position:sticky;top:84px;align-self:start}
+.toc h4{font-size:13px;color:var(--sub);margin-bottom:12px;font-weight:700}
+.toc a{display:flex;gap:10px;font-size:13.5px;color:var(--sub);padding:7px 0;line-height:1.45}
+.toc a em{font-style:normal;color:var(--lime);font-weight:900;width:16px;flex:none}
+.toc a:hover{color:var(--text)}
+.back{display:inline-block;font-size:13px;color:var(--sub);margin-bottom:18px}
+.back:hover{color:var(--lime)}
+.art{max-width:680px;min-width:0}
+.art h1{font-size:clamp(26px,4.4vw,38px);font-weight:900;letter-spacing:-1px;line-height:1.3}
+.gmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:16px 0 26px;font-size:12.5px;color:var(--sub)}
+.intro{background:#f4f4ec;color:var(--ink);border-radius:6px;padding:26px 24px 22px;position:relative;font-size:15.5px;margin-bottom:26px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.intro::before{content:"";position:absolute;top:-11px;left:50%;width:92px;height:22px;margin-left:-46px;background:rgba(215,255,58,.85);transform:rotate(-3deg)}
+.intro b{font-weight:900}
+.intro u{text-decoration:none;background:linear-gradient(transparent 62%,rgba(215,255,58,.9) 62%)}
+.art h2{font-size:22px;font-weight:900;letter-spacing:-.5px;margin:40px 0 12px;scroll-margin-top:84px;display:flex;gap:10px;align-items:baseline}
+.art h2 em{font-style:normal;color:var(--lime);font-size:14px;font-weight:900;letter-spacing:.05em}
+.art p{margin:10px 0;color:#d8d8d6;font-size:15.5px}
+.art ul,.art ol{margin:10px 0 10px 20px;color:#d8d8d6;font-size:15.5px}
+.art li{margin:6px 0}
+.art strong{color:var(--text)}
+.art code.i{background:#24242a;padding:1px 6px;border-radius:5px;font-size:.92em}
+.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.tbl th{text-align:left;color:var(--sub);font-weight:700;font-size:12.5px;border-bottom:1px solid var(--line);padding:8px 10px}
+.tbl td{border-bottom:1px solid var(--line);padding:10px;vertical-align:top;color:#d8d8d6}
+.tbl td:first-child{color:var(--text);font-weight:700;white-space:nowrap}
+.box{background:var(--bg2);border:1px solid var(--line);border-radius:16px;margin:16px 0;overflow:hidden}
+.box-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700}
+.box-h .ttl{display:flex;align-items:center;gap:8px}
+.box-h .ttl i{width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.copy{flex:none;white-space:nowrap;border:1px solid var(--line);padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:700;background:var(--card)}
+.copy.ok{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.box pre{padding:16px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:#eaeae6}
+.box.prompt pre{font-family:'Noto Sans KR',sans-serif;font-size:14.5px}
+.box pre mark{background:rgba(255,212,59,.2);color:var(--yellow);padding:0 3px;border-radius:3px}
+.note{border-left:3px solid var(--yellow);background:rgba(255,212,59,.06);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0;font-size:14.5px;color:#dcdcd6}
+.src{margin-top:34px;font-size:12.5px;color:#7d7d85;word-break:break-all}
+.src a{text-decoration:underline}
+.follow{margin-top:40px;background:var(--lime);color:var(--ink);border-radius:18px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.follow b{font-size:18px;font-weight:900;display:block}
+.follow span{font-size:14px}
+.follow a{background:var(--ink);color:var(--lime);font-weight:900;padding:11px 18px;border-radius:12px;font-size:14px}
+.related{margin-top:44px}
+.related h4{font-size:15px;margin-bottom:12px}
+
+footer{border-top:1px solid var(--line);padding:26px 20px;text-align:center;font-size:12.5px;color:#7d7d85}
+footer a{color:var(--sub);text-decoration:underline}
+
+@media (max-width:820px){
+  .grid{grid-template-columns:1fr}
+  .gwrap{grid-template-columns:1fr;gap:0}
+  .toc{position:static;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:24px}
+  .nav a.tab{display:none}
+  .hero{padding:44px 18px 40px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-in">
+  <a class="logo" href="#"><i></i>올팩<small>ai.allfactory</small></a>
+  <a class="tab on" href="#">가이드</a>
+  <span class="nav-sp"></span>
+  <a class="btn-cta" href="https://www.instagram.com/ai.allfactory/" target="_blank" rel="noopener">인스타 팔로우</a>
+</div></nav>
+
+<main id="app"></main>
+
+<footer>
+  © 올팩 (ai.allfactory) · 모든 가이드는 작성일 기준으로 확인한 내용이에요. 도구와 가격은 바뀔 수 있으니 공식 페이지도 함께 확인하세요.<br>
+  <a href="https://www.instagram.com/ai.allfactory/" target="_blank" rel="noopener">instagram.com/ai.allfactory</a>
+</footer>
+
+<script>
+const IG = "https://www.instagram.com/ai.allfactory/";
+
+/* ---------- 가이드 데이터 ---------- */
+const GUIDES = [
+{
+  id:"claude-skills-5", hot:true, isNew:true,
+  title:"클로드 코드에 이 5개만 까세요 — 무료 스킬 5개",
+  tools:["Claude Code"], topics:["스킬·MCP","코딩"],
+  excerpt:"클로드 코드가 만든 화면을 직접 열어 보게 하고, 뻔한 AI 디자인을 벗어나고, 긴 작업에서도 길을 잃지 않게 해 주는 무료 오픈소스 스킬 5개와 설치 명령어.",
+  date:"2026-11-23", min:6, keyword:"스킬",
+  intro:"<b>클로드 코드는 그대로 써도 똑똑하지만 빈틈이 있어요.</b> <u>만든 화면을 직접 열어 보지 않고, 디자인은 비슷비슷하고, 작업이 길어지면 앞에서 정한 걸 잊어버리죠.</u> 아래 다섯 개가 그 빈틈을 메워 줍니다. 전부 무료예요.",
+  prompt:{title:"클로드 코드에 붙여넣기", text:"지금 프로젝트에 맞는 스킬을 골라 줘. 후보는 agent-browser, find-skills, taste-skill, mcp-builder, GSD Core야.\n내가 하는 작업: <mark>[웹사이트 만들기 / 자동화 / 사내 도구 연결 등]</mark>\n필요한 것부터 1~2개만 추천하고, 설치 전에 각 저장소 README를 확인한 뒤 설치 명령을 알려 줘."},
+  sections:[
+    {h:"먼저 알아 둘 것", html:`
+      <table class="tbl"><tr><th>#</th><th>이름</th><th>하는 일</th><th>라이선스</th></tr>
+      <tr><td>1</td><td>agent-browser</td><td>클로드가 브라우저를 직접 열고 눌러 보며 화면 확인</td><td>Apache-2.0</td></tr>
+      <tr><td>2</td><td>find-skills</td><td>하고 싶은 일을 말하면 맞는 스킬을 찾아 설치</td><td>MIT</td></tr>
+      <tr><td>3</td><td>taste-skill</td><td>뻔한 AI 디자인 대신 기준 있는 디자인</td><td>MIT</td></tr>
+      <tr><td>4</td><td>mcp-builder</td><td>내가 쓰는 서비스를 클로드에 연결하는 MCP 서버 만들기</td><td>Anthropic 공식</td></tr>
+      <tr><td>5</td><td>GSD Core</td><td>긴 작업을 단계로 나눠 끝까지 진행</td><td>MIT</td></tr></table>
+      <p>준비물은 클로드 코드와 Node.js예요. 스킬 설치 도구(<code class="i">npx skills</code>)는 Node.js 22.20 이상이 필요합니다.</p>`},
+    {h:"agent-browser — 만든 화면을 직접 확인", html:`
+      <p>클로드가 브라우저를 열어 페이지를 읽고, 버튼을 누르고, 결과를 다시 확인해요. "만들었어요"로 끝나지 않고 실제로 열어 본 뒤 깨진 곳을 고칩니다.</p>
+      ${code("npm install -g agent-browser\nagent-browser install\nnpx skills add vercel-labs/agent-browser")}
+      <p>두 번째 줄은 처음 한 번 자동화용 크롬을 내려받는 단계예요. 설치 후 "만든 페이지를 agent-browser로 열어서 깨진 곳 확인해 줘"처럼 요청하면 됩니다.</p>`},
+    {h:"find-skills — 스킬을 대신 찾아 줌", html:`
+      <p>"PDF 정리하는 스킬 있어?"처럼 말하면 공개된 스킬 중에서 맞는 걸 찾아 설치까지 도와줘요. skills.sh 누적 설치 1위(약 450만 회)입니다.</p>
+      ${code("npx skills add vercel-labs/skills --skill find-skills")}`},
+    {h:"taste-skill — 뻔한 AI 디자인 탈출", html:`
+      <p>웹페이지를 만들 때 디자인 기준(디자인 시스템 하나, 화면당 한 섹션, 실제 사진과 아이콘 등)을 먼저 정하고, 다 만든 뒤 브라우저로 확인까지 하게 해요. 깃허브 별 12만 개가 넘는 인기 저장소예요.</p>
+      ${code("npx skills add Leonxlnx/taste-skill")}`},
+    {h:"mcp-builder — 내 서비스를 클로드에 연결", html:`
+      <p>Anthropic이 직접 올린 공식 스킬이에요. 연결하고 싶은 서비스의 API 문서를 주면, 그 서비스용 MCP 서버를 만드는 과정을 단계별로 안내합니다.</p>
+      ${code("npx skills add anthropics/skills --skill mcp-builder")}`},
+    {h:"GSD Core — 긴 작업도 길 잃지 않게", html:`
+      <p>큰 작업을 단계로 쪼개고, 정한 내용을 파일에 남기고, 무거운 작업은 새 대화(서브 에이전트)에서 돌려서 대화가 길어질수록 품질이 떨어지는 문제를 줄여요.</p>
+      ${code("npx @opengsd/gsd-core@latest")}
+      <p>설치 후 새 프로젝트는 <code class="i">/gsd-new-project</code>, 이미 있는 프로젝트는 <code class="i">/gsd-onboard</code>로 시작합니다.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>다섯 개를 한꺼번에 깔기보다 지금 필요한 것부터 하나씩 써 보세요. 스킬이 많을수록 클로드가 읽을 설명도 늘어나요.</li>
+      <li>설치 명령은 작성일 기준이에요. 안 되면 각 깃허브 README를 먼저 확인하세요.</li>
+      <li>모르는 사람이 올린 스킬은 설치 전에 내용을 한 번 훑어보세요.</li></ul>`}
+  ],
+  sources:["github.com/vercel-labs/agent-browser","github.com/vercel-labs/skills","skills.sh","github.com/Leonxlnx/taste-skill","github.com/anthropics/skills","github.com/open-gsd/gsd-core"]
+},
+{
+  id:"claude-court", hot:true,
+  title:"클로드 법정 — 결정 전에 판결부터 받는 법",
+  tools:["Claude Code"], topics:["스킬·MCP","생산성"],
+  excerpt:"클로드에게 물으면 늘 '좋은 생각이에요'로 끝나나요? 검사·변호인·배심원 12명이 내 아이디어를 재판에 세우는 court 스킬 설치법과 판결이 정확해지는 사건 쓰는 법.",
+  date:"2026-11-22", min:5, keyword:"법정",
+  intro:"<b>클로드에게 고민을 물으면 대개 \"좋은 생각이에요\"로 끝나죠.</b> court 스킬은 <u>검사는 안 되는 이유를, 변호인은 되는 이유를 대고, 배심원 12명이 따로 투표한 뒤 판사가 판결과 \"무엇을 바꾸면 표가 뒤집히는지\"</u>까지 정리해 줘요.",
+  prompt:{title:"사건 템플릿 (클로드 코드에 붙여넣기)", text:"/court <mark>[결정할 내용]</mark>한다. 모아 둔 돈 <mark>[금액]</mark>, 쓸 수 있는 시간 <mark>[주당 시간]</mark>, 지금까지 해 본 것 <mark>[성과를 숫자로]</mark>."},
+  sections:[
+    {h:"이 스킬이 하는 일", html:`
+      <table class="tbl"><tr><th>항목</th><th>내용</th></tr>
+      <tr><td>필요한 것</td><td>Claude Code가 돌아가는 환경(터미널·데스크톱 앱 등)</td></tr>
+      <tr><td>비용</td><td>스킬은 무료(MIT). 재판 한 번에 서브 에이전트 호출이 17번(빠른 모드 11번) 일어나 요금제 사용량이 그만큼 들어요</td></tr>
+      <tr><td>결과물</td><td>.court 폴더의 VERDICT.md (투표 수, 배심원별 이유, 무죄가 되기 위한 조건)</td></tr>
+      <tr><td>만든 사람</td><td>오픈소스 개발자 alexyc9381 (Anthropic 공식 아님)</td></tr></table>`},
+    {h:"설치", html:`
+      <p>클로드 코드에서 아래 중 하나만 실행하면 돼요.</p>
+      ${code("npx skills add alexyc9381/court-skill")}
+      <p>또는 플러그인으로 설치:</p>
+      ${code("/plugin marketplace add alexyc9381/court-skill\n/plugin install court-skill@court-skill")}`},
+    {h:"사건 올리고 판결 읽기", html:`
+      <p><code class="i">/court</code> 뒤에 고민 중인 결정을 적어요. 플러그인으로 설치했다면 <code class="i">/court-skill:court</code>입니다.</p>
+      ${code("/court 회사를 그만두고 온라인 쇼핑몰을 시작한다. 모아 둔 돈 1,000만 원, 부업으로 6개월 동안 판매 40건.")}
+      <p>끝나면 VERDICT.md를 열고 <strong>"무엇을 바꾸면 표가 뒤집히는지"</strong>부터 보세요. 그게 실제로 손봐야 할 체크리스트예요.</p>
+      <table class="tbl"><tr><th>옵션</th><th>하는 일</th></tr>
+      <tr><td>--quick</td><td>배심원 6명으로 빠르게</td></tr>
+      <tr><td>--jury N</td><td>배심원 수를 3~12명으로 지정</td></tr>
+      <tr><td>--seed S</td><td>같은 배심원 구성으로 다시 부르기</td></tr></table>`},
+    {h:"판결이 정확해지는 사건 쓰는 법", html:`
+      <p>배심원은 내가 쓴 내용만 보고 판단해요. 숫자가 들어갈수록 판결이 구체적이에요.</p>
+      <table class="tbl"><tr><th>이렇게 말고</th><th>이렇게</th></tr>
+      <tr><td>회사 그만둬도 될까?</td><td>퇴사하고 쇼핑몰에 전념한다. 모아 둔 돈 1,000만 원, 월 고정비 150만 원, 부업 6개월 판매 40건</td></tr>
+      <tr><td>유튜브 해볼까?</td><td>주 2회 요리 유튜브를 6개월 한다. 평일 저녁 2시간, 장비는 폰만, 인스타 팔로워 800명</td></tr>
+      <tr><td>이사할까?</td><td>회사 근처로 이사한다. 월세 30만 원 상승, 출퇴근 하루 2시간 → 30분</td></tr></table>`},
+    {h:"주의할 점", html:`
+      <ul><li>판결은 AI의 두 번째 의견일 뿐 법률·재무 조언이 아니에요. 최종 결정은 본인이 해요.</li>
+      <li>회사 기밀이나 남의 개인정보는 사건에 넣지 마세요.</li>
+      <li>처음에는 <code class="i">--quick</code>으로 사용량을 아껴 보세요.</li></ul>`}
+  ],
+  sources:["github.com/alexyc9381/court-skill"]
+},
+{
+  id:"open-generative-ai",
+  title:"영상 AI 200개를 앱 하나로 — 설치부터 첫 영상까지",
+  tools:["오픈소스"], topics:["영상·이미지"],
+  excerpt:"이미지·영상 AI 모델 수백 개를 한 화면에서 골라 쓰는 오픈소스 앱 Open Generative AI. 웹에서 바로 쓰는 법, API 키 연결, 첫 영상 만들기까지 3단계.",
+  date:"2026-11-21", min:5, keyword:"영상",
+  intro:"<b>영상 AI마다 구독료 따로 내고 계신가요?</b> Open Generative AI는 <u>이미지·영상 모델 수백 개를 한 화면에 모아 둔 오픈소스 앱</u>이에요. 앱은 무료(MIT)지만, 만드는 방식에 따라 생성 비용이 달라져요.",
+  prompt:{title:"첫 영상 프롬프트", text:"A cat astronaut floating in space, cinematic"},
+  sections:[
+    {h:"방식별 비용", html:`
+      <table class="tbl"><tr><th>방식</th><th>필요한 것</th><th>비용</th></tr>
+      <tr><td>웹에서 바로</td><td>브라우저 + MuAPI 키</td><td>앱은 무료, 생성 시 MuAPI 요금</td></tr>
+      <tr><td>데스크톱 + 클라우드</td><td>설치 파일 + MuAPI 키</td><td>위와 같음</td></tr>
+      <tr><td>데스크톱 + 내 PC</td><td>그래픽카드(NVIDIA·AMD)</td><td>생성 비용 없음, 영상은 Wan2GP 추가 설치</td></tr></table>
+      <p>처음이라면 웹에서 먼저 써 보고, 마음에 들면 데스크톱으로 넘어가세요. 요금은 생성 전에 muapi.ai에서 꼭 확인하세요.</p>`},
+    {h:"앱 열기", html:`
+      <ul><li><strong>가장 빠른 방법:</strong> 브라우저에서 muapi.ai/open-generative-ai 열기. 설치 필요 없어요.</li>
+      <li><strong>데스크톱 앱:</strong> GitHub에서 Anil-matcha/Open-Generative-AI → Releases에서 내 컴퓨터용 설치 파일(윈도우·맥·리눅스)을 받아요.</li></ul>`},
+    {h:"API 키 연결", html:`
+      <ol><li>muapi.ai 가입 → API Keys 메뉴에서 키 만들기</li>
+      <li>앱 오른쪽 위 "Enter API Key"에 붙여넣기</li>
+      <li>키는 비밀번호처럼 다루고 절대 공유하지 마세요</li></ol>`},
+    {h:"첫 영상 만들기", html:`
+      <ol><li>상단 메뉴에서 Video 선택</li>
+      <li>왼쪽 아래에서 모델 고르기. 처음엔 5초, 낮은 화질로 비용 아끼기</li>
+      <li>만들 장면을 한 문장으로 적고 Generate</li>
+      <li>사진으로 만들려면 이미지 모드로 바꾸고 사진 업로드. 립싱크는 상단 Lip Sync 메뉴</li></ol>`},
+    {h:"자주 막히는 부분", html:`
+      <table class="tbl"><tr><th>상황</th><th>해결</th></tr>
+      <tr><td>"API Key Required" 창</td><td>키 연결이 안 된 상태예요. 다시 붙여넣기</td></tr>
+      <tr><td>윈도우 설치 경고</td><td>서명 없는 오픈소스라 뜨는 경고. 공식 Releases 파일인지 확인 후 진행</td></tr>
+      <tr><td>비용이 많이 나옴</td><td>짧고 낮은 화질로 테스트 후 마음에 드는 것만 고화질로</td></tr></table>
+      <div class="note">다른 사람의 얼굴이나 목소리는 동의 없이 쓰면 안 돼요. SNS에 올릴 때는 AI 라벨을 켜 두세요.</div>`}
+  ],
+  sources:["github.com/Anil-matcha/Open-Generative-AI","muapi.ai"]
+},
+{
+  id:"chatgpt-one-liners",
+  title:"챗GPT 답변이 확 바뀌는 한 줄 5개",
+  tools:["ChatGPT","Claude"], topics:["프롬프트"],
+  excerpt:"질문 끝에 한 줄만 붙이면 답이 달라져요. 표 정리, 쉬운 설명, 지어낸 답 줄이기, 반대 의견, 역질문까지 5개를 한 번에 넣는 만능 문장.",
+  date:"2026-11-15", min:2, keyword:"올팩",
+  intro:"<b>챗GPT 답이 애매하다면,</b> <u>질문 끝에 이 한 줄만 붙여 보세요.</u> 클로드·제미나이에서도 똑같이 통해요.",
+  prompt:{title:"만능 문장 (질문 끝에 붙여넣기)", text:"답하기 전에 부족한 정보가 있으면 나한테 먼저 질문해줘. 모르는 내용은 모른다고 말해줘. 초등학생도 이해할 수 있게 설명하고, 핵심은 표로 정리해줘. 마지막에 반대 의견도 한 줄 넣어줘."},
+  sections:[
+    {h:"한 줄 5개", html:`
+      <table class="tbl"><tr><th>한 줄</th><th>효과</th></tr>
+      <tr><td>표로 정리해줘</td><td>긴 글이 한눈에</td></tr>
+      <tr><td>초등학생도 이해하게 설명해줘</td><td>어려운 내용이 쉽게</td></tr>
+      <tr><td>모르면 모른다고 말해줘</td><td>지어낸 답이 줄어요</td></tr>
+      <tr><td>반대 의견도 알려줘</td><td>치우친 답을 막아줘요</td></tr>
+      <tr><td>부족한 정보는 먼저 질문해줘</td><td>결과물이 정확해져요</td></tr></table>`},
+    {h:"쓰는 법", html:`<p>위 만능 문장을 복사해 두고, 중요한 질문 끝에 그대로 붙이세요. 전부 필요 없으면 필요한 줄만 골라 써도 돼요.</p>`}
+  ],
+  sources:[]
+},
+{
+  id:"prompt-formula",
+  title:"AI 답이 별로라면 질문부터 — 프롬프트 공식 5",
+  tools:["ChatGPT","Claude"], topics:["프롬프트"],
+  excerpt:"역할 정하기, 형식 못 박기, 예시 붙이기, AI가 먼저 질문하게 하기, 한 번에 끝내지 않기. [ ] 안만 바꿔 쓰는 질문 템플릿 5개.",
+  date:"2026-11-14", min:3, keyword:"올팩",
+  intro:"<b>AI 답변이 별로라면 모델보다 질문을 먼저 바꿔 보세요.</b> <u>같은 챗GPT에서도 질문 구조만 바꾸면 결과가 확 달라져요.</u>",
+  prompt:{title:"합쳐 쓰는 템플릿", text:"너는 <mark>[10년 차 마케터]</mark>야. <mark>[20대 직장인]</mark>이 볼 <mark>[인스타 문구]</mark>를 써줘.\n결과는 표로, 항목은 5개 이내, 마지막에 3줄 요약.\n쓰기 전에 필요한 정보가 있으면 나한테 먼저 질문해줘."},
+  sections:[
+    {h:"템플릿 5개", html:`
+      <ol><li><strong>역할:</strong> 너는 [10년 차 마케터]야. [20대 직장인]이 볼 [인스타 문구]를 써줘.</li>
+      <li><strong>형식:</strong> 이 자료를 표로 정리해줘. 항목은 5개 이내, 마지막에 3줄 요약.</li>
+      <li><strong>예시:</strong> 아래 글과 같은 말투와 길이로 [주제]에 대해 써줘. [내 글 붙여넣기]</li>
+      <li><strong>역질문:</strong> [사업계획서]를 쓰기 전에 필요한 정보가 있으면 나한테 먼저 질문해줘.</li>
+      <li><strong>다듬기:</strong> 방금 답을 절반으로 줄이고, 전문용어는 빼고, 근거를 붙여서 다시 써줘.</li></ol>`},
+    {h:"쓰는 순서", html:`<p>1~4로 첫 답을 받고, 5번으로 한두 번 다듬으세요. 한 번에 완벽한 답을 기대하지 않는 게 핵심이에요.</p>`}
+  ],
+  sources:[]
+},
+{
+  id:"what-if-video",
+  title:"'만약에' AI 영상 1분 만에 만드는 공식",
+  tools:["Higgsfield","Kling"], topics:["영상·이미지"],
+  excerpt:"고양이가 세상을 지배한다면? 상황 → 장면 묘사 → 카메라 스타일 순서로 쓰면 끝. 복붙하는 '만약에' 프롬프트 3개.",
+  date:"2026-11-12", min:2, keyword:"올팩",
+  intro:"<b>요즘 뜨는 '만약에' AI 영상,</b> <u>공식만 알면 1분이면 만들어요.</u> 말이 안 될수록 반응이 좋아요.",
+  prompt:{title:"공식", text:"What if <mark>[상황]</mark>, <mark>[장면 묘사]</mark>, <mark>[카메라 스타일]</mark>, vertical 9:16"},
+  sections:[
+    {h:"바로 쓰는 프롬프트 3개", html:`
+      ${code("What if cats ruled the world, giant cats in business suits walking through a busy city while tiny humans carry their briefcases, cinematic, tracking shot, vertical 9:16")}
+      ${code("What if rain fell upward, raindrops rising from a wet Seoul street into the sky while people stare up with umbrellas, cinematic, slow motion, vertical 9:16")}
+      ${code("What if the morning commute were under the sea, office workers with coffee walking on the seabed past fish and coral, cinematic, tracking shot, vertical 9:16")}`},
+    {h:"만드는 법", html:`<ol><li>힉스필드·클링 등 영상 AI 열기</li><li>프롬프트 붙여넣기</li><li>세로 9:16, 5초로 생성</li></ol>`}
+  ],
+  sources:[]
+},
+{
+  id:"photo-action-movie",
+  title:"사진 한 장이 5초 액션 영화가 되는 프롬프트",
+  tools:["Higgsfield","Kling"], topics:["영상·이미지"],
+  excerpt:"전신 사진 한 장과 프롬프트 한 줄이면 끝. 얼굴과 옷이 그대로 유지되게 하는 한 마디와 사진 고르는 법.",
+  date:"2026-11-10", min:2, keyword:"올팩",
+  intro:"<b>사진 한 장이 5초 뒤 액션 영화가 됩니다.</b> <u>\"얼굴과 옷은 그대로\"를 꼭 넣으세요.</u> 이 한 마디가 결과를 가릅니다.",
+  prompt:{title:"프롬프트", text:"<mark>[시장 골목]</mark>을 액션 영화 주인공처럼 질주한다. 얼굴과 옷은 그대로."},
+  sections:[
+    {h:"3단계", html:`<ol><li>전신 사진 준비 (얼굴 정면, 옷이 잘 보이게, 배경은 단순하게)</li><li>영상 AI에 사진 올리고 프롬프트 붙여넣기</li><li>세로 9:16, 5초로 생성</li></ol>
+    <div class="note">내 사진이나 동의받은 사진만 쓰세요.</div>`}
+  ],
+  sources:[]
+},
+{
+  id:"pet-kungfu",
+  title:"우리 집 강아지를 쿵푸 고수로 만드는 법",
+  tools:["Higgsfield","Kling"], topics:["영상·이미지"],
+  excerpt:"정면 사진 한 장에 동작 한 문장. 밝은 곳에서 몸 전체가 나온 사진일수록 잘 나와요. 동작만 바꾸면 춤·요리·복싱도.",
+  date:"2026-11-08", min:2, keyword:"올팩",
+  intro:"<b>사진 한 장에 동작을 한 문장으로만 적으면 돼요.</b> <u>밝은 곳에서 몸 전체가 나온 사진일수록 잘 나옵니다.</u>",
+  prompt:{title:"프롬프트", text:"뒷발로 서서 쿵푸 자세를 잡고, <mark>휴지를 반으로 가른다</mark>."},
+  sections:[
+    {h:"3단계", html:`<ol><li>정면 사진 한 장 (얼굴 정면, 몸 전체, 밝은 곳)</li><li>영상 AI에 사진 올리고 동작 한 문장 붙여넣기</li><li>세로 9:16, 5초로 생성</li></ol>
+    <p>동작만 바꿔서 춤, 요리, 복싱도 만들 수 있어요.</p>`}
+  ],
+  sources:[]
+},
+{
+  id:"instagram-keywords",
+  title:"해시태그 5개 시대, 검색되는 키워드 넣는 법",
+  tools:["Instagram"], topics:["인스타 성장"],
+  excerpt:"인스타그램은 게시물당 해시태그를 5개로 제한했어요. 이제는 캡션 첫 줄·자막·말에 키워드를 넣는 게 더 중요해요. 6단계 체크리스트.",
+  date:"2026-11-18", min:3, keyword:"키워드",
+  intro:"<b>아직도 해시태그 30개 다세요?</b> 인스타그램은 2025년 12월부터 <u>게시물당 해시태그를 최대 5개로 제한</u>했어요. 이제는 화면 자막과 말하는 문장에 검색될 단어를 넣는 게 훨씬 중요해요.",
+  prompt:{title:"AI에게 키워드 뽑기 맡기기", text:"내 인스타 계정 주제는 <mark>[주제]</mark>야. 사람들이 인스타 검색창에 실제로 칠 만한 한국어 키워드 10개를 뽑아 주고, 이번 게시물 <mark>[게시물 내용]</mark>에 맞는 메인 키워드 1개와 해시태그 5개를 골라 줘."},
+  sections:[
+    {h:"체크리스트 6단계", html:`<ol>
+      <li>인스타 검색창에 내 주제를 치고, 자동완성 단어 5개 적기</li>
+      <li>그중 이번 게시물에 맞는 단어 1개를 메인 키워드로</li>
+      <li>캡션 첫 줄에 메인 키워드 넣기</li>
+      <li>영상 첫 3초 자막과 말하는 문장에도 같은 단어 한 번씩</li>
+      <li>해시태그는 주제를 설명하는 3~5개만</li>
+      <li>프로필 이름 칸에도 계정 주제 키워드 넣기</li></ol>`}
+  ],
+  sources:[]
+},
+{
+  id:"google-privacy",
+  title:"구글에서 내 개인정보 찾아서 지우는 법",
+  tools:["Google"], topics:["보안"],
+  excerpt:"내 이름을 검색하면 전화번호나 이메일이 나오나요? 노출된 페이지를 찾고, 구글 '나와 관련된 결과'로 삭제를 요청하는 단계별 방법.",
+  date:"2026-11-19", min:3, keyword:"보안",
+  intro:"<b>구글에 내 이름 검색해 본 적 있나요?</b> <u>전화번호나 이메일이 그대로 노출된 페이지가 있을 수 있어요.</u> 찾는 법부터 삭제 요청까지 순서대로 따라 하세요.",
+  prompt:{title:"검색어 예시", text:"\"<mark>홍길동</mark>\" \"010-\"\n\"<mark>홍길동</mark>\" \"@gmail.com\""},
+  sections:[
+    {h:"단계별 방법", html:`<ol>
+      <li>구글에서 내 이름과 전화번호, 내 이름과 이메일을 따옴표로 묶어 검색</li>
+      <li>내 정보가 나온 페이지 주소를 메모</li>
+      <li>구글 앱 또는 myactivity.google.com/results-about-you 에서 '나와 관련된 결과' 열기 (계정·지역에 따라 메뉴 이름이 다를 수 있어요)</li>
+      <li>검색 결과 옆 점 3개(⋮)를 눌러 삭제를 요청할 수도 있어요</li>
+      <li>가장 확실한 방법은 원래 사이트 운영자에게 직접 삭제 요청</li>
+      <li>국내 사이트라면 개인정보침해 신고센터(국번 없이 118)에 상담</li></ol>
+      <div class="note">구글 삭제는 검색 결과에서만 사라지고, 원래 페이지는 남아 있을 수 있어요.</div>`}
+  ],
+  sources:["myactivity.google.com/results-about-you","privacy.kisa.or.kr"]
+}
+];
+
+/* ---------- helpers ---------- */
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function code(t){return `<div class="box"><div class="box-h"><span class="ttl"><i></i>명령어</span><button class="copy" data-c="${encodeURIComponent(t)}">복사</button></div><pre>${esc(t)}</pre></div>`}
+function plain(html){const d=document.createElement("div");d.innerHTML=html;return d.textContent}
+
+const app=document.getElementById("app");
+let state={q:"",tool:"전체",topic:"전체"};
+try{const s=JSON.parse(localStorage.getItem("afHub")||"null");if(s)state=Object.assign(state,s)}catch(e){}
+
+function counts(key){
+  const m={};GUIDES.forEach(g=>g[key].forEach(v=>m[v]=(m[v]||0)+1));
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+}
+
+function renderList(){
+  document.title="올팩 무료 자료실";
+  const tools=counts("tools"), topics=counts("topics");
+  app.innerHTML=`
+  <section class="hero">
+    <span class="label">ALLFACTORY FREE GUIDES</span>
+    <h1>릴스에서 본 그 자료,<br><b>여기 다 있어요</b></h1>
+    <p>복사해서 바로 쓰는 프롬프트와 설치법을 한곳에 모았어요.<br>가입도 결제도 필요 없어요.</p>
+    <div class="hand">새 릴스가 나올 때마다 하나씩 늘어나요 ✦</div>
+  </section>
+  <div class="wrap">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="제목이나 키워드로 찾기 (예: 스킬, 영상)" value="${esc(state.q)}">
+    </label>
+    <div class="filters">
+      <div class="frow"><span class="k">도구</span>${chip("tool","전체",GUIDES.length)}${tools.map(([k,n])=>chip("tool",k,n)).join("")}</div>
+      <div class="frow"><span class="k">주제</span>${chip("topic","전체",GUIDES.length)}${topics.map(([k,n])=>chip("topic",k,n)).join("")}</div>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </div>`;
+  document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value;save();renderCards()});
+  app.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{state[c.dataset.k]=c.dataset.v;save();renderList()}));
+  renderCards();
+}
+function chip(k,v,n){return `<button class="chip ${state[k]===v?"on":""}" data-k="${k}" data-v="${v}">${v}<span>${n}</span></button>`}
+function save(){try{localStorage.setItem("afHub",JSON.stringify(state))}catch(e){}}
+
+function renderCards(){
+  const q=state.q.trim().toLowerCase();
+  const list=GUIDES.filter(g=>{
+    if(state.tool!=="전체"&&!g.tools.includes(state.tool))return false;
+    if(state.topic!=="전체"&&!g.topics.includes(state.topic))return false;
+    if(!q)return true;
+    return (g.title+" "+g.excerpt+" "+g.tools.join(" ")+" "+g.topics.join(" ")+" "+g.keyword).toLowerCase().includes(q);
+  });
+  document.getElementById("count").innerHTML=`<b>${list.length}</b>편`;
+  document.getElementById("grid").innerHTML=list.length?list.map(cardHtml).join(""):`<div class="empty">찾는 자료가 없어요. 인스타 DM으로 요청해 주세요!</div>`;
+}
+function cardHtml(g){
+  return `<a class="card ${g.hot?"hot":""}" href="#${g.id}">
+    <div class="tags">${g.isNew?'<span class="tag new">NEW</span>':""}${g.tools.map(t=>`<span class="tag t">${t}</span>`).join("")}${g.topics.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+    <h3>${g.title}</h3>
+    <p>${g.excerpt}</p>
+    <div class="meta">읽는 데 ${g.min}분 · STEP ${g.sections.length}개</div>
+    <span class="arrow">→</span>
+  </a>`;
+}
+
+function renderGuide(g){
+  document.title=g.title+" · 올팩";
+  const toc=[`<a href="#${g.id}" data-s="quick"><em>✦</em>Quick Start</a>`]
+    .concat(g.sections.map((s,i)=>`<a href="#${g.id}" data-s="s${i}"><em>${i+1}</em>${s.h}</a>`)).join("");
+  const others=GUIDES.filter(x=>x.id!==g.id&&x.topics.some(t=>g.topics.includes(t))).slice(0,2);
+  const more=others.length?others:GUIDES.filter(x=>x.id!==g.id).slice(0,2);
+  app.innerHTML=`
+  <div class="gwrap">
+    <aside class="toc"><h4>이 가이드의 순서</h4>${toc}</aside>
+    <article class="art">
+      <a class="back" href="#">← 전체 자료 보기</a>
+      <h1>${g.title}</h1>
+      <div class="gmeta">${g.tools.map(t=>`<span class="tag t">${t}</span>`).join("")}${g.topics.map(t=>`<span class="tag">${t}</span>`).join("")}<span>읽는 데 ${g.min}분 · STEP ${g.sections.length}개 · ${g.date} 작성</span></div>
+      <div class="intro">${g.intro}</div>
+      <div class="box prompt" id="quick">
+        <div class="box-h"><span class="ttl"><i></i>⚡ 복사해서 바로 시작 · ${g.prompt.title}</span><button class="copy" data-c="${encodeURIComponent(plain(g.prompt.text))}">복사</button></div>
+        <pre>${g.prompt.text}</pre>
+      </div>
+      ${g.sections.map((s,i)=>`<h2 id="s${i}"><em>STEP ${String(i+1).padStart(2,"0")}</em>${s.h}</h2>${s.html}`).join("")}
+      ${g.sources.length?`<div class="src">출처: ${g.sources.join(" · ")}</div>`:""}
+      <div class="follow"><div><b>다음 자료도 받아 가세요</b><span>새 릴스마다 무료 가이드가 하나씩 올라와요</span></div><a href="${IG}" target="_blank" rel="noopener">@ai.allfactory 팔로우</a></div>
+      <div class="related"><h4>같이 보면 좋은 자료</h4><div class="grid">${more.map(cardHtml).join("")}</div></div>
+    </article>
+  </div>`;
+  app.querySelectorAll(".toc a").forEach(a=>a.addEventListener("click",e=>{
+    e.preventDefault();const el=document.getElementById(a.dataset.s);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+  }));
+}
+
+/* copy */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest(".copy");if(!b)return;
+  e.preventDefault();e.stopPropagation();
+  const t=decodeURIComponent(b.dataset.c);
+  let ok=false;
+  try{await navigator.clipboard.writeText(t);ok=true}catch(err){
+    try{const ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();ok=document.execCommand("copy");ta.remove()}catch(e2){}
+  }
+  b.textContent=ok?"복사됨 ✓":"길게 눌러 복사";b.classList.toggle("ok",ok);
+  setTimeout(()=>{b.textContent="복사";b.classList.remove("ok")},1800);
+});
+
+function route(){
+  const id=location.hash.replace("#","");
+  const g=GUIDES.find(x=>x.id===id);
+  if(g)renderGuide(g);else renderList();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+route();
+</script>
+</body>
+</html>
