@@ -152,7 +152,42 @@ const IG = "https://www.instagram.com/ai.allfactory/";
 /* ---------- 가이드 데이터 ---------- */
 const GUIDES = [
 {
-  id:"claude-skills-5", hot:true, isNew:true,
+  id:"claude-token-save-3", hot:true, isNew:true,
+  title:"클로드 코드 토큰 아끼는 무료 도구 3개",
+  tools:["Claude Code"], topics:["스킬·MCP","비용 절약"],
+  excerpt:"사용 한도에 자꾸 걸린다면. 코드를 짧게 쓰게 하는 Ponytail, 프로젝트를 지도로 만드는 Graphify, 보내기 전에 압축하는 Headroom 설치법과 주의점.",
+  date:"2026-11-24", min:5, keyword:"토큰",
+  intro:"<b>클로드 코드 토큰, 금방 바닥나죠?</b> <u>모델을 바꾸기 전에 '덜 쓰게' 만드는 도구부터 써 보세요.</u> 아래 셋은 모두 무료 오픈소스예요(2026년 11월 24일 깃허브에서 확인).",
+  prompt:{title:"클로드 코드에 붙여넣기", text:"이 프로젝트에서 토큰을 아끼고 싶어. Ponytail, Graphify, Headroom 중 <mark>[내 프로젝트 크기·작업 종류]</mark>에 맞는 것 하나만 골라 줘.\n설치 전에 해당 저장소 README를 확인하고, 설치 명령과 되돌리는 방법을 같이 알려 줘."},
+  sections:[
+    {h:"한눈에 보기", html:`
+      <table class="tbl"><tr><th>#</th><th>이름</th><th>하는 일</th><th>라이선스</th></tr>
+      <tr><td>1</td><td>Ponytail</td><td>AI가 코드를 짧게 쓰도록 유도</td><td>MIT</td></tr>
+      <tr><td>2</td><td>Graphify</td><td>코드·문서를 지도(지식 그래프)로 만들어 필요한 곳만 찾게</td><td>Apache-2.0 / MIT</td></tr>
+      <tr><td>3</td><td>Headroom</td><td>도구 결과·로그·파일을 모델에 보내기 전에 압축</td><td>Apache-2.0</td></tr></table>
+      <p>세 개를 한꺼번에 깔기보다, 지금 가장 토큰이 많이 새는 곳 하나부터 해결하세요.</p>`},
+    {h:"Ponytail — 코드를 짧게", html:`
+      <p>"가장 좋은 코드는 안 쓴 코드"라는 생각으로 AI가 불필요한 코드를 덜 쓰게 하는 스킬이에요. 개발자가 직접 잰 테스트(Opus 5.5, 39개 과제, 각 5회)에서 토큰 −45%, 비용 −26%가 나왔어요.</p>
+      ${code("/plugin marketplace add DietrichGebert/ponytail\n/plugin install ponytail@ponytail")}
+      <p>두 줄을 클로드 코드에 하나씩 입력하세요.</p>`},
+    {h:"Graphify — 프로젝트를 지도로", html:`
+      <p>코드와 문서, 설정 파일을 하나의 지도로 만들어 두고, 질문할 때 관련된 곳만 찾아보게 해요. 파일이 많은 프로젝트일수록 효과가 커요. README에는 토큰 절감 수치가 따로 적혀 있지 않아요.</p>
+      ${code("uv tool install graphifyy\ngraphify install")}
+      <p>설치 후 클로드 코드에서 <code class="i">/graphify .</code> 을 실행하세요. 패키지 이름은 y가 두 개(graphifyy)예요.</p>`},
+    {h:"Headroom — 보내기 전에 압축", html:`
+      <p>도구 결과, 로그, 파일 내용을 모델에 보내기 전에 줄여 주는 로컬 프로그램이에요. README 벤치에서 코드 검색 21%, 이슈 분류 30%, 코드베이스 탐색 42%, 장애 디버깅 57%를 아꼈어요. 이미 짧은 글은 거의 줄지 않아요.</p>
+      ${code('uv tool install --python 3.13 "headroom-ai[all]"\nheadroom wrap claude')}
+      <p>그만 쓰고 싶으면 <code class="i">headroom unwrap claude</code> 로 되돌릴 수 있어요.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>모든 수치는 각 프로젝트가 직접 잰 결과예요. 내 작업에서는 다를 수 있으니 설치 전후로 비교해 보세요.</li>
+      <li>uv가 없다면 먼저 설치해야 해요(astral.sh/uv).</li>
+      <li>모르는 도구는 설치 전에 README를 한 번 훑어보세요.</li></ul>`}
+  ],
+  sources:["github.com/DietrichGebert/ponytail","github.com/Graphify-Labs/graphify","github.com/headroomlabs-ai/headroom"]
+},
+
+{
+  id:"claude-skills-5", hot:true,
   title:"클로드 코드에 이 5개만 까세요 — 무료 스킬 5개",
   tools:["Claude Code"], topics:["스킬·MCP","코딩"],
   excerpt:"클로드 코드가 만든 화면을 직접 열어 보게 하고, 뻔한 AI 디자인을 벗어나고, 긴 작업에서도 길을 잃지 않게 해 주는 무료 오픈소스 스킬 5개와 설치 명령어.",
