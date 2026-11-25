@@ -152,7 +152,41 @@ const IG = "https://www.instagram.com/ai.allfactory/";
 /* ---------- 가이드 데이터 ---------- */
 const GUIDES = [
 {
-  id:"claude-token-save-3", hot:true, isNew:true,
+  id:"web-design-skills-3", hot:true, isNew:true,
+  title:"클로드 웹사이트, AI 티 안 나게 만드는 디자인 스킬 3개",
+  tools:["Claude Code"], topics:["스킬·MCP","디자인"],
+  excerpt:"클로드로 만든 사이트가 다 비슷해 보인다면. Anthropic 공식 frontend-design, 디자인 시스템을 짜 주는 UI UX Pro Max, AI 티를 잡아내는 Impeccable 설치법과 쓰는 법.",
+  date:"2026-11-25", min:5, keyword:"디자인",
+  intro:"<b>클로드로 만든 사이트, 다 똑같이 생겼죠?</b> <u>보라색 그라데이션, Inter 폰트, 아이콘 카드 세 개. AI가 기본으로 고르는 디자인이에요.</u> 아래 스킬 셋을 쓰면 확실히 달라져요. 셋 다 무료 오픈소스예요(2026년 11월 25일 깃허브에서 확인).",
+  prompt:{title:"클로드 코드에 붙여넣기", text:"<mark>[내 서비스 한 줄 설명]</mark> 랜딩 페이지를 만들어 줘.\n먼저 frontend-design 스킬로 이 주제에만 어울리는 콘셉트(폰트·색·레이아웃)를 3줄로 제안하고, 내가 고르면 그걸로 만들어 줘.\n다 만든 뒤에는 /impeccable critique 로 AI 티 나는 부분을 찾아 고쳐 줘."},
+  sections:[
+    {h:"한눈에 보기", html:`
+      <table class="tbl"><tr><th>#</th><th>이름</th><th>하는 일</th><th>라이선스</th></tr>
+      <tr><td>1</td><td>frontend-design</td><td>Anthropic 공식. 뻔한 AI 디자인 대신 주제에 맞는 콘셉트로 만들게 함</td><td>Apache-2.0</td></tr>
+      <tr><td>2</td><td>UI UX Pro Max</td><td>내 서비스에 맞는 디자인 시스템(패턴·스타일·색·폰트)을 자동 생성</td><td>MIT</td></tr>
+      <tr><td>3</td><td>Impeccable</td><td>AI 티 나는 디자인을 62가지 규칙으로 검사하고 다듬기</td><td>Apache-2.0</td></tr></table>
+      <p>새로 만들 땐 1·2번, 이미 만든 페이지를 다듬을 땐 3번이 잘 맞아요.</p>`},
+    {h:"frontend-design — Anthropic 공식", html:`
+      <p>Anthropic이 직접 만든 디자인 스킬이에요. 프론트엔드 작업을 하면 클로드가 알아서 이 스킬을 쓰고, 뻔한 템플릿 대신 주제에 맞는 폰트·색·레이아웃을 골라요.</p>
+      ${code("/plugin install frontend-design@claude-plugins-official")}
+      <p>설치 후에는 평소처럼 "카페 랜딩 페이지 만들어 줘"라고만 해도 적용돼요.</p>`},
+    {h:"UI UX Pro Max — 디자인 시스템 자동 생성", html:`
+      <p>서비스 설명을 읽고 어울리는 화면 패턴, 스타일, 색 조합, 폰트 조합을 한 번에 정해 줘요. README 기준 추론 규칙 194개, UI 스타일 80개를 갖고 있어요.</p>
+      ${code("/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill\n/plugin install ui-ux-pro-max@ui-ux-pro-max-skill")}
+      <p>두 줄을 클로드 코드에 하나씩 입력하세요. 예: <code class="i">/ui-ux-pro-max 우리 스파 예약 페이지 만들어 줘</code></p>`},
+    {h:"Impeccable — AI 티 잡아내기", html:`
+      <p>Inter 폰트만 쓰기, 보라→파랑 그라데이션, 카드 안에 카드 같은 'AI 티'를 62가지 규칙으로 찾아내요. 명령어 24개로 더 과감하게(bolder), 차분하게(quieter), 마무리(polish)처럼 방향을 말로 지시할 수 있어요.</p>
+      ${code("npx impeccable install")}
+      <p>설치 후 도구를 새로고침하고 <code class="i">/impeccable init</code> 을 한 번 실행하세요. 그다음 <code class="i">/impeccable critique 랜딩 페이지</code> 처럼 쓰면 돼요.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>스킬은 남이 만든 코드예요. 설치 전에 각 저장소 README를 한 번 훑어보세요.</li>
+      <li>Impeccable 설치에는 Node.js(npx)가 필요해요.</li>
+      <li>디자인 스킬을 여러 개 동시에 켜면 지시가 겹칠 수 있어요. 하나씩 써 보고 맞는 걸 고르세요.</li></ul>`}
+  ],
+  sources:["github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design","github.com/nextlevelbuilder/ui-ux-pro-max-skill","github.com/pbakaus/impeccable"]
+},
+{
+  id:"claude-token-save-3", hot:true,
   title:"클로드 코드 토큰 아끼는 무료 도구 3개",
   tools:["Claude Code"], topics:["스킬·MCP","비용 절약"],
   excerpt:"사용 한도에 자꾸 걸린다면. 코드를 짧게 쓰게 하는 Ponytail, 프로젝트를 지도로 만드는 Graphify, 보내기 전에 압축하는 Headroom 설치법과 주의점.",
