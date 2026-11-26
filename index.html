@@ -152,7 +152,50 @@ const IG = "https://www.instagram.com/ai.allfactory/";
 /* ---------- 가이드 데이터 ---------- */
 const GUIDES = [
 {
-  id:"web-design-skills-3", hot:true, isNew:true,
+  id:"claude-code-setup-5", hot:true, isNew:true,
+  title:"클로드 코드 깔고 제일 먼저 할 기본 세팅 5개",
+  tools:["Claude Code","Ollama"], topics:["클로드 코드","세팅"],
+  excerpt:"규칙 기억(/init), 자동 메모리(/memory), 계획 먼저(Shift+Tab), 매번 묻는 허용 줄이기(/permissions), 로컬 무료 모델(ollama launch claude)까지. 공식 문서로 확인한 기본 세팅 5개.",
+  date:"2026-11-26", min:5, keyword:"세팅",
+  intro:"<b>클로드 코드, 깔고 바로 쓰고 있나요?</b> <u>매번 같은 규칙을 다시 설명하고, 명령마다 허용 버튼을 누르고 있다면</u> 아래 다섯 개부터 세팅하세요. 전부 공식 문서 기준이에요(2026년 11월 26일 확인).",
+  prompt:{title:"클로드 코드에 붙여넣기", text:"/init 을 실행해서 이 프로젝트의 CLAUDE.md를 만들어 줘.\n빌드·테스트 명령, 폴더 구조, 코드 스타일을 적고 200줄 안으로 짧게 써 줘.\n추가로 넣을 규칙: <mark>[예: 커밋 메시지는 한국어로]</mark>"},
+  sections:[
+    {h:"한눈에 보기", html:`
+      <table class="tbl"><tr><th>#</th><th>세팅</th><th>하는 일</th></tr>
+      <tr><td>1</td><td><code class="i">/init</code></td><td>프로젝트를 분석해 CLAUDE.md(규칙 파일)를 만듦. 매 세션 자동으로 읽음</td></tr>
+      <tr><td>2</td><td><code class="i">/memory</code></td><td>클로드가 직접 쓰는 자동 메모리를 확인·켜고 끄기</td></tr>
+      <tr><td>3</td><td><code class="i">Shift+Tab</code></td><td>플랜 모드. 파일을 고치기 전에 계획부터 보여 줌</td></tr>
+      <tr><td>4</td><td><code class="i">/permissions</code></td><td>자주 쓰는 명령은 허용, 위험한 명령은 차단</td></tr>
+      <tr><td>5</td><td><code class="i">ollama launch claude</code></td><td>Ollama 모델로 클로드 코드 실행. 로컬 모델이면 API 요금 없음</td></tr></table>`},
+    {h:"/init — 프로젝트 규칙 기억시키기", html:`
+      <p>클로드 코드는 세션마다 새로 시작해요. <code class="i">/init</code> 을 실행하면 코드베이스를 분석해 빌드·테스트 명령, 프로젝트 규칙을 담은 <b>CLAUDE.md</b>를 만들고, 이후 모든 세션이 시작될 때 자동으로 읽어요. 이미 있으면 덮어쓰지 않고 개선안을 제안해요.</p>
+      ${code("/init")}
+      <p>공식 문서 권장: CLAUDE.md는 <b>200줄 이하</b>로. 길수록 컨텍스트를 많이 먹고 잘 안 지켜요. 나만 쓰는 설정은 <code class="i">CLAUDE.local.md</code>에 넣고 .gitignore에 추가하세요.</p>`},
+    {h:"/memory — 자동 메모리 확인", html:`
+      <p>자동 메모리는 클로드가 작업하면서 알게 된 것(내가 고쳐 준 점, 선호 등)을 <b>스스로</b> 적어 두는 기능이에요. 로컬 세션에서는 기본으로 켜져 있어요.</p>
+      ${code("/memory")}
+      <p>여기서 불러온 CLAUDE.md 목록, 자동 메모리 켜기/끄기, 메모 폴더 열기를 할 수 있어요. 메모는 <code class="i">~/.claude/projects/&lt;프로젝트&gt;/memory/</code>에 저장되고, MEMORY.md의 앞 200줄(또는 25KB)이 매 세션 시작 때 읽혀요. 틀린 메모는 직접 지우면 돼요.</p>`},
+    {h:"Shift+Tab — 플랜 모드로 계획부터", html:`
+      <p>입력창에서 <b>Shift+Tab</b>을 누를 때마다 권한 모드가 바뀌어요(수동 → 편집 자동 승인 → 플랜 모드). 플랜 모드에서는 클로드가 파일을 읽고 계획만 쓰고, <b>소스는 고치지 않아요</b>. 계획을 승인해야 편집을 시작해요.</p>
+      ${code("claude --permission-mode plan")}
+      <p>처음부터 플랜 모드로 켜려면 위처럼 실행하세요. 한 번만 계획을 받고 싶으면 프롬프트 앞에 <code class="i">/plan</code> 을 붙여도 돼요.</p>`},
+    {h:"/permissions — 매번 묻는 허용 줄이기", html:`
+      <p>기본 설정에선 명령을 실행하거나 파일을 고칠 때마다 허용 여부를 물어요. <code class="i">/permissions</code> 에서 자주 쓰는 명령은 Allow, 위험한 명령은 Deny로 등록하세요. settings.json에 직접 적어도 돼요.</p>
+      ${code('{\n  "permissions": {\n    "allow": ["Bash(npm run *)", "Bash(git commit *)"],\n    "deny": ["Bash(git push *)"]\n  }\n}')}
+      <p><code class="i">*</code>는 하위 명령 뒤에 두세요. <code class="i">Bash(git *)</code>처럼 쓰면 모든 git 명령이 허용돼요.</p>`},
+    {h:"ollama launch claude — 로컬 모델로 요금 없이", html:`
+      <p>Ollama(2026년 1월 v0.15부터)는 명령 한 줄로 클로드 코드를 Ollama 모델에 연결해요. 환경변수 설정이 필요 없어요.</p>
+      ${code("ollama launch claude")}
+      <p>모델 목록에서 고르면 바로 실행돼요. <b>내 컴퓨터에서 도는 로컬 모델</b>이면 API 요금이 들지 않아요. 단, 도구 호출을 지원하는 모델을 고르고 컨텍스트는 64k 이상을 권장해요(Ollama 문서). 클라우드 모델은 Ollama API 키가 필요해요.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>로컬 모델은 컴퓨터 성능에 따라 느리고, 클로드 모델보다 품질이 떨어질 수 있어요. 가벼운 작업부터 써 보세요.</li>
+      <li>허용(Allow)은 좁게. <code class="i">git push</code>, 삭제 명령은 Deny에 두는 걸 추천해요.</li>
+      <li>CLAUDE.md·자동 메모리는 '지시'일 뿐 강제는 아니에요. 꼭 막아야 하는 건 /permissions로 막으세요.</li></ul>`}
+  ],
+  sources:["code.claude.com/docs/en/memory","code.claude.com/docs/en/permission-modes","code.claude.com/docs/en/permissions","docs.ollama.com/integrations/claude-code","ollama.com/blog/launch"]
+},
+{
+  id:"web-design-skills-3", hot:true, isNew:false,
   title:"클로드 웹사이트, AI 티 안 나게 만드는 디자인 스킬 3개",
   tools:["Claude Code"], topics:["스킬·MCP","디자인"],
   excerpt:"클로드로 만든 사이트가 다 비슷해 보인다면. Anthropic 공식 frontend-design, 디자인 시스템을 짜 주는 UI UX Pro Max, AI 티를 잡아내는 Impeccable 설치법과 쓰는 법.",
