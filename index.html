@@ -152,7 +152,44 @@ const IG = "https://www.instagram.com/ai.allfactory/";
 /* ---------- 가이드 데이터 ---------- */
 const GUIDES = [
 {
-  id:"claude-code-setup-5", hot:true, isNew:true,
+  id:"claude-code-plugins-5", hot:true, isNew:true,
+  title:"클로드 코드 입문 필수 공식 플러그인 5개",
+  tools:["Claude Code"], topics:["클로드 코드","플러그인"],
+  excerpt:"superpowers · code-review · commit-commands · security-guidance · claude-code-setup. Anthropic 공식 마켓플레이스에서 한 줄로 설치하는 입문 필수 플러그인 5개.",
+  date:"2026-11-27", min:4, keyword:"플러그인",
+  intro:"<b>클로드 코드, 플러그인 하나도 안 깔고 쓰고 있나요?</b> <u>공식 마켓플레이스(claude-plugins-official)는 클로드 코드에 기본으로 등록돼 있어서</u> 명령어 한 줄이면 설치돼요. 입문자가 먼저 깔면 좋은 5개를 골랐어요(2026년 11월 27일 확인).",
+  prompt:{title:"클로드 코드에 한 줄씩 붙여넣기", text:"/plugin install superpowers@claude-plugins-official\n/plugin install code-review@claude-plugins-official\n/plugin install commit-commands@claude-plugins-official\n/plugin install security-guidance@claude-plugins-official\n/plugin install claude-code-setup@claude-plugins-official\n/reload-plugins"},
+  sections:[
+    {h:"한눈에 보기", html:`
+      <table class="tbl"><tr><th>#</th><th>플러그인</th><th>하는 일</th></tr>
+      <tr><td>1</td><td><code class="i">superpowers</code></td><td>브레인스토밍 → 계획 → 테스트 먼저(TDD) → 리뷰 순서로 일하게 함</td></tr>
+      <tr><td>2</td><td><code class="i">code-review</code></td><td>여러 전문 에이전트가 변경 사항을 검토, 신뢰도 점수로 오탐을 거름</td></tr>
+      <tr><td>3</td><td><code class="i">commit-commands</code></td><td>변경 사항 스테이징 → 커밋 메시지 작성 → 커밋까지 한 번에</td></tr>
+      <tr><td>4</td><td><code class="i">security-guidance</code></td><td>코드를 고칠 때 위험한 패턴을 바로 경고, 커밋 전 보안 검토</td></tr>
+      <tr><td>5</td><td><code class="i">claude-code-setup</code></td><td>내 코드베이스를 분석해 hooks·skills·MCP·서브에이전트 자동화를 추천</td></tr></table>`},
+    {h:"설치 방법", html:`
+      <p>클로드 코드 안에서 아래처럼 입력하면 돼요. 공식 마켓플레이스는 처음 실행할 때 자동으로 등록돼요. 설치 후 <code class="i">/reload-plugins</code> 를 입력하면 바로 켜져요.</p>
+      ${code("/plugin install superpowers@claude-plugins-official")}
+      <p>마켓플레이스를 못 찾는다고 나오면 먼저 <code class="i">/plugin marketplace add anthropics/claude-plugins-official</code> 을 입력하세요. <code class="i">/plugin</code> 만 입력하면 목록에서 골라 설치할 수도 있어요.</p>`},
+    {h:"superpowers — 계획부터 세우는 습관", html:`
+      <p>바로 코드부터 쓰지 않고, 무엇을 만들지 질문하고(브레인스토밍) 작업을 잘게 나눈 계획을 세운 뒤, 테스트를 먼저 쓰고 구현해요. 끝나면 스스로 코드 리뷰까지 해요. GitHub 별 32.1만(obra/superpowers, MIT 라이선스, 11/27 기준).</p>`},
+    {h:"code-review — 에이전트들이 버그 검사", html:`
+      <p>여러 전문 에이전트가 동시에 변경 사항을 보고 버그·놓친 엣지 케이스를 찾아요. 신뢰도 점수로 걸러서 엉뚱한 지적(오탐)을 줄여요.</p>`},
+    {h:"commit-commands — 커밋 메시지 자동 작성", html:`
+      <p><code class="i">/commit-commands:commit</code> 을 입력하면 변경 사항을 스테이징하고, 커밋 메시지를 만들어 커밋까지 해 줘요. 푸시·PR 만들기 명령도 들어 있어요.</p>`},
+    {h:"security-guidance — 보안 구멍 즉시 경고", html:`
+      <p>클로드가 코드를 고칠 때 위험한 패턴(예: 사용자 입력을 그대로 실행)을 바로 경고하고, 작업이 끝날 때 변경 내용을 다시 검토해요.</p>`},
+    {h:"claude-code-setup — 맞춤 자동화 추천", html:`
+      <p>내 프로젝트를 읽고 어떤 자동화(hooks, skills, MCP 서버, 서브에이전트)를 쓰면 좋을지 추천해요. 처음 세팅할 때 한 번 돌려 보세요.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>플러그인은 명령·훅을 실행할 수 있어요. 공식 마켓플레이스라도 설명을 읽고 필요한 것만 설치하세요.</li>
+      <li>플러그인 명령은 이름이 앞에 붙어요(예: <code class="i">/commit-commands:commit</code>).</li>
+      <li>목록은 자주 바뀌어요. 안 보이면 <code class="i">/plugin</code> 에서 검색해 보세요.</li></ul>`}
+  ],
+  sources:["code.claude.com/docs/en/discover-plugins","github.com/anthropics/claude-plugins-official","github.com/obra/superpowers"]
+},
+{
+  id:"claude-code-setup-5", hot:true, isNew:false,
   title:"클로드 코드 깔고 제일 먼저 할 기본 세팅 5개",
   tools:["Claude Code","Ollama"], topics:["클로드 코드","세팅"],
   excerpt:"규칙 기억(/init), 자동 메모리(/memory), 계획 먼저(Shift+Tab), 매번 묻는 허용 줄이기(/permissions), 로컬 무료 모델(ollama launch claude)까지. 공식 문서로 확인한 기본 세팅 5개.",
