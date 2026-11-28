@@ -152,7 +152,44 @@ const IG = "https://www.instagram.com/ai.allfactory/";
 /* ---------- 가이드 데이터 ---------- */
 const GUIDES = [
 {
-  id:"claude-code-plugins-5", hot:true, isNew:true,
+  id:"claude-code-mcp-5", hot:true, isNew:true,
+  title:"클로드 코드 필수 MCP 5개 연결하기",
+  tools:["Claude Code","MCP"], topics:["클로드 코드","MCP"],
+  excerpt:"Context7 · Playwright · GitHub · Notion · Figma. 명령어 한 줄로 클로드 코드에 연결하는 필수 MCP 5개.",
+  date:"2026-11-28", min:5, keyword:"MCP",
+  intro:"<b>클로드 코드, MCP 하나도 연결 안 했나요?</b> <u>MCP는 클로드가 다른 서비스(문서·브라우저·깃허브·노션·피그마)를 직접 쓰게 해 주는 연결 통로예요.</u> 명령어 한 줄씩이면 연결돼요(2026년 11월 28일 공식 문서 기준).",
+  prompt:{title:"터미널에 한 줄씩 붙여넣기", text:"npx ctx7 setup --claude\nclaude mcp add playwright npx @playwright/mcp@latest\nclaude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header \"Authorization: Bearer 내_깃허브_토큰\"\nclaude mcp add --transport http notion https://mcp.notion.com/mcp\nclaude mcp add --transport http figma https://mcp.figma.com/mcp"},
+  sections:[
+    {h:"한눈에 보기", html:`
+      <table class="tbl"><tr><th>#</th><th>MCP</th><th>하는 일</th></tr>
+      <tr><td>1</td><td><code class="i">Context7</code></td><td>라이브러리 최신 공식 문서·예제를 버전에 맞게 가져옴</td></tr>
+      <tr><td>2</td><td><code class="i">Playwright</code></td><td>클로드가 브라우저를 직접 열고 클릭·입력하며 테스트</td></tr>
+      <tr><td>3</td><td><code class="i">GitHub</code></td><td>저장소·이슈·PR을 대화로 읽고 관리</td></tr>
+      <tr><td>4</td><td><code class="i">Notion</code></td><td>내 노션 문서를 검색·읽고 정리·수정</td></tr>
+      <tr><td>5</td><td><code class="i">Figma</code></td><td>피그마 디자인을 읽어 코드로 옮김</td></tr></table>`},
+    {h:"연결 방법", html:`
+      <p>터미널(클로드 코드 밖)에서 명령어를 입력하고, 클로드 코드를 다시 켠 뒤 <code class="i">/mcp</code> 를 입력하면 연결 상태가 보여요. 노션·피그마처럼 로그인이 필요한 건 <code class="i">/mcp</code> 메뉴에서 로그인하면 돼요.</p>
+      ${code("claude mcp add --transport http notion https://mcp.notion.com/mcp")}`},
+    {h:"Context7 — 최신 공식 문서", html:`
+      <p>AI가 옛날 문법으로 코드를 쓰는 걸 막아 줘요. 질문하면 그 라이브러리의 최신 공식 문서와 예제를 찾아서 답에 넣어요. <code class="i">npx ctx7 setup --claude</code> 로 설치하면 브라우저 로그인만 하면 돼요. GitHub 별 6.4만(upstash/context7, MIT, 11/28 기준).</p>`},
+    {h:"Playwright — 브라우저 직접 테스트", html:`
+      <p>마이크로소프트가 만든 MCP예요. 클로드가 브라우저를 열어 버튼을 누르고 폼을 채우면서 내 사이트가 제대로 되는지 확인해요. 스크린샷 대신 화면 구조를 읽어서 빠르고 정확해요.</p>`},
+    {h:"GitHub — 이슈·PR 대화로", html:`
+      <p>"이슈 #12 고쳐서 PR 올려 줘"처럼 말하면 이슈를 읽고 PR까지 만들어요. 깃허브 개인 액세스 토큰(PAT)이 필요해요. 토큰은 필요한 권한만 주고, 다른 사람과 공유하지 마세요.</p>`},
+    {h:"Notion — 문서 읽고 정리", html:`
+      <p>노션이 직접 운영하는 원격 MCP예요. 회의록을 읽고 할 일 목록으로 정리하거나, 새 페이지를 만들 수 있어요. 내가 볼 수 있는 페이지만 다뤄요.</p>`},
+    {h:"Figma — 디자인을 코드로", html:`
+      <p>피그마 공식 원격 MCP예요. 디자인 링크를 주면 색상·간격·레이아웃을 읽어서 코드로 옮겨 줘요. 처음 연결할 때 피그마 계정으로 로그인해요.</p>`},
+    {h:"주의할 점", html:`
+      <ul><li>MCP는 클로드에게 외부 서비스 권한을 주는 거예요. 믿을 수 있는 공식 서버만 연결하세요.</li>
+      <li>토큰·API 키는 대화창에 붙여넣지 말고, 연결 명령어나 환경 변수로만 넣으세요.</li>
+      <li>연결 목록은 <code class="i">claude mcp list</code>, 삭제는 <code class="i">claude mcp remove 이름</code>.</li></ul>`}
+  ],
+  sources:["code.claude.com/docs/en/mcp","github.com/upstash/context7","github.com/microsoft/playwright-mcp","github.com/github/github-mcp-server","developers.notion.com/docs/mcp","developers.figma.com/docs/figma-mcp-server"]
+},
+
+{
+  id:"claude-code-plugins-5", hot:true, isNew:false,
   title:"클로드 코드 입문 필수 공식 플러그인 5개",
   tools:["Claude Code"], topics:["클로드 코드","플러그인"],
   excerpt:"superpowers · code-review · commit-commands · security-guidance · claude-code-setup. Anthropic 공식 마켓플레이스에서 한 줄로 설치하는 입문 필수 플러그인 5개.",
